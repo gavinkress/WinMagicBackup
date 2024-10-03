@@ -39,3 +39,9 @@ The behavior of the workflow is extreemly easy to implement and highly customiza
 * N_backups: Keep <int> unique backups
 * backupdata: <Custom> method, can be as complex as necessary  (e.g. $backupdata = env # Backup Item Data Collection)
   * following line to extract Backup data follows the same logic (e.g. echo $backupdata >> "$directory\$Unique_Backup_Name.txt" # Saving Backup data)
+
+
+### Note: You will need sign the ps1 script to run it as a scheduled task. 
+  * To do this see [Microsofts Instructions](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_signing?view=powershell-7.4)
+  * For best practice I reccomend setting your Execution policy to AllSigned or Remote Signed `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine`
+
