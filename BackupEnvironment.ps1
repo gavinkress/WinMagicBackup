@@ -55,11 +55,12 @@ $N_backups = 50   # Keep N unique backups
 
 # Custom Backup data Collection and extraction methods
 $backupdata = env # Backup Item Data Collection
+$Unique_Backup_Name = "$Backup_Name $Date_now.txt"
 echo $backupdata >> "$directory\$Unique_Backup_Name.txt" # Saving Backup data
 
 $Date_now = Get-Date -Format "MM-dd-yyyy hh_mm_ss_ff"
 $TheTaskName = "$Backup_Name Backup by gavinkress"
-$Unique_Backup_Name = "$Backup_Name $Date_now.txt"
+
 $BackupMatchPattern = "^$Backup_Name .?\d{2}-\d{2}-\d{4} \d{2}_\d{2}_\d{2}.?.txt$" #specific against other files in directory
 
 #Remove old task
