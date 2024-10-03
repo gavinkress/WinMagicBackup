@@ -7,7 +7,7 @@ __________________________________
 __________________________________
 -------------------------------------------------------
 
-- name: WinMagicBackup
+- Name: WinMagicBackup
 - Homepage: https://github.com/gavinkress/WinMagicBackup
 - Author: Gavin Kress
 - email: gavinkress@gmail.com
@@ -23,12 +23,12 @@ __________________________________
 ## Docs
 ----------------------------------------------------------------
 
-This is a task which is part of an automated file Backup workflow created by gavinkress(https://github.com/gavinkress/WinMagicBackup). 
-It runs At $BackupTime every $Day_Interval days to executre $PSCommandPath.
+This is a task which is part of an automated file Backup workflow created by [gavinkress](https://github.com/gavinkress/). 
+It runs At $BackupTime every $Day_Interval days to execute $PSCommandPath.
 $PSCommandPath creates a file matching the naming convention of $Unique_Backup_Name in $directory.
 It ensures no redundancy by only keeping the most recently created edition of a File which has others with duplicate data and limits the total number of these files to the most recent $N_baackups written.
 
-The behavior of the workflow is extreemly easy to implement and highly customizable. Simply modify the following inputs at the top of the script, save the script anywhere On your pc and run it once. Nothing else is needed, everything will behave as expected from then on, feel free to change any parameters any Time and It will also change with no work needed by you.
+The behavior of the workflow is extreemly easy to implement and highly customizable. Simply modify the following inputs at the top of the script, save the script anywhere On your pc and run it once. Nothing else is needed, everything will behave as expected from then on, feel free to change any parameters at any time and the behavior will automatically update.
 
 BackupTaskState: On or Off <str>
 directory: where to store Backup files <str>
@@ -140,13 +140,15 @@ else {
 } # Error Handeling
 
 Catch {
-    $_.Exception | Out-File $directory\ERROR_TASK_FAILED.log -Append
-	ErrMsg = @"
-	Backup task $PSCommand failed with Exception $_.Exception.
-	Error log appended at $directory\ERROR_TASK_FAILED.log -Append
-	you must fix your input or manually disable or will Keep getting this popup.
-	"@
 	
-	Write-Host $ErrMsg
-    Break
+$_.Exception | Out-File $directory\ERROR_TASK_FAILED.log -Append
+ErrMsg = @"
+Backup task $PSCommand failed with Exception $_.Exception.
+Error log appended at $directory\ERROR_TASK_FAILED.log -Append
+you must fix your input or manually disable or will Keep getting this popup.
+"@
+	
+Write-Host $ErrMsg
+Break
+
 }
