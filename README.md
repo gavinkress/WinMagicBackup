@@ -31,11 +31,11 @@ It ensures no redundancy by only keeping the most recently created edition of a 
 
 The behavior of the workflow is extreemly easy to implement and highly customizable. Simply modify the following inputs at the top of the script, save the script anywhere On your pc and run it once. Nothing else is needed, everything will behave as expected from then on, feel free to change any parameters at any time and the behavior will automatically update.
 
-BackupTaskState: On or Off <str>
-directory: where to store Backup files <str>
-Backup_Name: Descriptive <str> to Prepend for Naming
-Day_Interval: Backup every <int> days
-BackupTime: Time of Day: <Time> 'eg 4pm' to run Backup. No quotes needed.
-N_backups: Keep <int> unique backups
-backupdata: <Custom> method, can be as complex as necessary  (e.g. $backupdata = env # Backup Item Data Collection)
-following line to extract Backup data follows the same logic (e.g. echo $backupdata >> "$directory\$Unique_Backup_Name.txt" # Saving Backup data)
+- BackupTaskState: On or Off <str>
+- directory: where to store Backup files <str>
+- Backup_Name: Descriptive <str> to Prepend for Naming
+- Day_Interval: Backup every <int> days
+- BackupTime: Time of Day: <Time> 'eg 4pm' to run Backup. No quotes needed.
+- N_backups: Keep <int> unique backups
+- backupdata: <Custom> method, can be as complex as necessary  (e.g. $backupdata = env # Backup Item Data Collection)
+- - following line to extract Backup data follows the same logic (e.g. echo $backupdata >> "$directory\$Unique_Backup_Name.txt" # Saving Backup data)
