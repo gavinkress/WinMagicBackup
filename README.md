@@ -14,7 +14,6 @@ ______________________________________________________
 - email: gavinkress@gmail.com
 - Date: 9/30/2024
 - version: 1.0.0
-- readme = WinMagicBackup
 - Programming Language(s): powershell 
 - License: MIT License
 - Operating System: Windows 11
