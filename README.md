@@ -36,7 +36,7 @@ The behavior of the workflow is extreemly easy to implement and highly customiza
 * Directories: Array of locations to store Backup files of each backup item - [array[(string)]]
 * Backup_Names: Array of descriptive names to prepend on backup file - [array[(string)]]
 * BackupTime: Time of Day to run Backup. - (string)
-* N_backups_list: Array of numbers of unique backups to keep for each backup item - [array[intiger]]
+* N_backups_list: Array of numbers of unique backups to keep for each backup item - [array[integer]]
 * BackupTarget: Outer function which houses the custom backup data collection and extraction methods as inner functions and calls them based on the index of the backup item - [function[function]]
   * The current functions backup Environment Variables, List of Current Apps, and a WSL Ubuntu .tar file
 
