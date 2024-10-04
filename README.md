@@ -37,7 +37,7 @@ The behavior of the workflow is extreemly easy to implement and highly customiza
 * BackupTime: Time of Day to run Backup. - (string)
 * N_backups_list: Array of numbers of unique backups to keep for each backup item - [array[integer]]
 * BackupTarget: Outer function which houses the custom backup data collection and extraction methods as inner functions and calls them based on the index of the backup item - [function[function]]
-  * The current functions backup your Environment Variables, create a list of your Current Apps, and creates a full backup of your WSL Ubuntu OS as a .tar file
+  * The current functions backup your Environment Variables, create a list of your Current Apps, and creates a full backup of your WSL Ubuntu and Kali Linux Environments as .tar files
 
 ### Notes:  
 * To set this in motion you must run the ps1 script by right clicking it and selecting "Run with PowerShell"
