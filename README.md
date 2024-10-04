@@ -22,7 +22,7 @@ ______________________________________________________
 ----------------------------------------------------------------
 ## Docs
 ----------------------------------------------------------------
-Download the ps1 file: [BackupScript.ps1](https://github.com/gavinkress/WinMagicBackup/BackupScript.ps1)
+Download the ps1 file: [BackupScript.ps1](https://github.com/gavinkress/WinMagicBackup/blob/main/BackupScript.ps1)
 
 This is a task which is part of an automated file Backup workflow created by [gavinkress](https://github.com/gavinkress/). 
 It runs At `$BackupTime` every `$Day_Interval` days to execute `$PSCommandPath`.
@@ -37,7 +37,7 @@ The behavior of the workflow is extreemly easy to implement and highly customiza
 * BackupTime: Time of Day to run Backup. - (string)
 * N_backups_list: Array of numbers of unique backups to keep for each backup item - [array[integer]]
 * BackupTarget: Outer function which houses the custom backup data collection and extraction methods as inner functions and calls them based on the index of the backup item - [function[function]]
-  * The current functions backup Environment Variables, List of Current Apps, and a WSL Ubuntu .tar file
+  * The current functions backup your Environment Variables, create a list of your Current Apps, and creates a full backup of your WSL Ubuntu OS as a .tar file
 
 ### Notes:  
 * To set this in motion you must run the ps1 script by right clicking it and selecting "Run with PowerShell"
