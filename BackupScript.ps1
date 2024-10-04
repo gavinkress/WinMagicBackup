@@ -135,10 +135,9 @@ try {
 				- Name: WinMagicBackup
 				- Homepage: https://github.com/gavinkress/WinMagicBackup
 				- Author: Gavin Kress
-				- email: gavinkress@gmail.com
+				- Email: gavinkress@gmail.com
 				- Date: 9/30/2024
-				- version: 1.0.0
-				- readme: WinMagicBackup
+				- Version: 1.0.0
 				- Programming Language(s): powershell 
 				- License: MIT License
 				- Operating System: Windows 11
@@ -150,18 +149,18 @@ try {
 				Download the ps1 file: [BackupScript.ps1](https://github.com/gavinkress/WinMagicBackup/BackupScript.ps1)
 
 				This is a task which is part of an automated file Backup workflow created by [gavinkress](https://github.com/gavinkress/). 
-				It runs At $BackupTime every $Day_Interval days to execute $PSCommandPath.
-				$PSCommandPath creates a file matching the naming convention of $Unique_Backup_Name in $directory.
-				It ensures no redundancy by only keeping the most recently created edition of a File which has others with duplicate data and limits the total number of these files to the most recent $N_backups written.
+				It runs At `$BackupTime` every `$Day_Interval` days to execute $PSCommandPath.
+				$PSCommandPath creates a file matching the naming convention of `$Unique_Backup_Name` in `$directory`.
+				It ensures no redundancy by only keeping the most recently created edition of a File which has others with duplicate data and limits the total number of these files to the most recent `$N_backups` written.
 
 				The behavior of the workflow is extreemly easy to implement and highly customizable. Simply modify the following inputs at the top of the script, save the script anywhere On your pc and run it once. Nothing else is needed, everything will behave as expected from then on, feel free to change any parameters at any time and the behavior will automatically update.
 
-				* BackupTaskState: On or Off <str>
-				* directories: Array of locations to store Backup files of each backup item - [<arr>[<str>]]
-				* Backup_Names: Array of descriptive names to prepend on backup file - [<arr>[<str>]]
-				* BackupTime: Time of Day to run Backup. - <str>
-				* N_backups_list: Array of numbers of unique backups to keep for each backup item - [<arr>[<int>]]
-				* BackupTarget: Outer function which houses the custom backup data collection and extraction methods as inner functions and calls them based on the index of the backup item - [<func>[<func>]]
+				* BackupTaskState: On or Off (string)
+				* Directories: Array of locations to store Backup files of each backup item - [array[(string)]]
+				* Backup_Names: Array of descriptive names to prepend on backup file - [array[(string)]]
+				* BackupTime: Time of Day to run Backup. - (string)
+				* N_backups_list: Array of numbers of unique backups to keep for each backup item - [array[intiger]]
+				* BackupTarget: Outer function which houses the custom backup data collection and extraction methods as inner functions and calls them based on the index of the backup item - [function[function]]
 				  * The current functions backup Environment Variables, List of Current Apps, and a WSL Ubuntu .tar file
 
 				### Notes:  
@@ -170,7 +169,7 @@ try {
 				* You also may need sign the ps1 script to run it as a scheduled task.
 				  * For best practice I reccomend setting your Execution policy to AllSigned or Remote Signed rather than bypassing it.
 				  * `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine`
-				  * To add your own signature see [Microsofts Instructions](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_signing?view=powershell-7.4)
+				  * To add your own signature see [Microsofts In(string)uctions](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_signing?view=powershell-7.4)
 
 "@
 				
