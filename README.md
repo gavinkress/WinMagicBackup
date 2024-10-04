@@ -45,5 +45,5 @@ The behavior of the workflow is extreemly easy to implement and highly customiza
 * You also may need sign the ps1 script to run it as a scheduled task.
   * For best practice I reccomend setting your Execution policy to AllSigned or Remote Signed rather than bypassing it.
   * `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine`
-  * To add your own signature see [Microsofts In(string)uctions](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_signing?view=powershell-7.4)
+  * To add your own signature see [Microsofts Instructions](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_signing?view=powershell-7.4)
 
