@@ -14,6 +14,10 @@ ______________________________________________________
 - email: gavinkress@gmail.com
 - Date: 9/30/2024
 - version: 1.0.0
+<<<<<<< Updated upstream
+=======
+- readme: WinMagicBackup
+>>>>>>> Stashed changes
 - Programming Language(s): powershell 
 - License: MIT License
 - Operating System: Windows 11
@@ -22,25 +26,27 @@ ______________________________________________________
 ----------------------------------------------------------------
 ## Docs
 ----------------------------------------------------------------
+Download the ps1 file: [BackupScript.ps1](https://github.com/gavinkress/WinMagicBackup/BackupScript.ps1)
 
 This is a task which is part of an automated file Backup workflow created by [gavinkress](https://github.com/gavinkress/). 
 It runs At $BackupTime every $Day_Interval days to execute $PSCommandPath.
 $PSCommandPath creates a file matching the naming convention of $Unique_Backup_Name in $directory.
-It ensures no redundancy by only keeping the most recently created edition of a File which has others with duplicate data and limits the total number of these files to the most recent $N_baackups written.
+It ensures no redundancy by only keeping the most recently created edition of a File which has others with duplicate data and limits the total number of these files to the most recent $N_backups written.
 
 The behavior of the workflow is extreemly easy to implement and highly customizable. Simply modify the following inputs at the top of the script, save the script anywhere On your pc and run it once. Nothing else is needed, everything will behave as expected from then on, feel free to change any parameters at any time and the behavior will automatically update.
 
 * BackupTaskState: On or Off <str>
-* directory: where to store Backup files <str>
-* Backup_Name: Descriptive <str> to Prepend for Naming
-* Day_Interval: Backup every <int> days
-* BackupTime: Time of Day: <Time> 'eg 4pm' to run Backup. No quotes needed.
-* N_backups: Keep <int> unique backups
-* backupdata: <Custom> method, can be as complex as necessary  (e.g. $backupdata = env # Backup Item Data Collection)
-  * following line to extract Backup data follows the same logic (e.g. echo $backupdata >> "$directory\$Unique_Backup_Name.txt" # Saving Backup data)
+* directories: Array of locations to store Backup files of each backup item - [<arr>[<str>]]
+* Backup_Names: Array of descriptive names to prepend on backup file - [<arr>[<str>]]
+* BackupTime: Time of Day to run Backup. - <str>
+* N_backups_list: Array of numbers of unique backups to keep for each backup item - [<arr>[<int>]]
+* BackupTarget: Outer function which houses the custom backup data collection and extraction methods as inner functions and calls them based on the index of the backup item - [<func>[<func>]]
+  * The current functions backup Environment Variables, List of Current Apps, and a WSL Ubuntu .tar file
 
-
-### Note: You will need sign the ps1 script to run it as a scheduled task. 
-  * To do this see [Microsofts Instructions](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_signing?view=powershell-7.4)
-  * For best practice I reccomend setting your Execution policy to AllSigned or Remote Signed `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine`
-
+### Notes:  
+* To set this in motion you must run the ps1 script by right clicking it and selecting "Run with PowerShell"
+* Depending on your UAC settings, you may need to give it permission to run each time.
+* You also may need sign the ps1 script to run it as a scheduled task.
+  * For best practice I reccomend setting your Execution policy to AllSigned or Remote Signed rather than bypassing it.
+  * `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine`
+  * To add your own signature see [Microsofts Instructions](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_signing?view=powershell-7.4)
