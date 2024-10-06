@@ -19,17 +19,23 @@ try {
 	$BackupTaskState = "On" # On or Off  -- Choose to enable/disable backup
 	$directories = @( # where to store Backup files for each backup item
 		"$env:USERPROFILE\OneDrive\Configuration and Settings Backup\Environment Variables", 
-		"$env:USERPROFILE\OneDrive\Configuration and Settings Backup\AppList"
-		"$env:USERPROFILE\OneDrive\Configuration and Settings Backup\WSL\Ubuntu" 
+		"$env:USERPROFILE\OneDrive\Configuration and Settings Backup\AppList",
+		"$env:USERPROFILE\OneDrive\Configuration and Settings Backup\WSL\Ubuntu",
+		"$env:USERPROFILE\OneDrive\Configuration and Settings Backup\WSL\docker-desktop",
+		"$env:USERPROFILE\OneDrive\Configuration and Settings Backup\WSL\Kali"  
 	) 
 	$Backup_Names = @( # Descriptive Backup Prepend for Naming
 		"System Environment Variables", 
 		"Current Apps",
-		"WSL_Ubuntu"
+		"WSL_Ubuntu",
+		"WSL_Docker", 
+		"WSL_Kali"
 	)
 	$N_backups_list = @( # Keep N unique backups
 		50,
 		50, 
+		3,
+		3, 
 		3
 	)
 
@@ -64,7 +70,20 @@ try {
 			)
 			wsl --export Ubuntu "$out_directory\$out_filename.tar" 
 		}
-		
+		function Backup-WSLDocker {
+			param (
+				$out_directory,
+				$out_filename
+			)
+			wsl --export docker-desktop "$out_directory\$out_filename.tar" 
+		}
+		function Backup-WSLKali {
+			param (
+				$out_directory,
+				$out_filename
+			)
+			wsl --export docker-desktop "$out_directory\$out_filename.tar" 
+		}
 		if ($k -eq 0) {
 			Backup-EnvironmentVariables -out_directory $out_directory -out_filename $out_filename
 		}
@@ -73,6 +92,12 @@ try {
 		}
 		if ($k -eq 2) {
 			Backup-WSLUbuntu -out_directory $out_directory -out_filename $out_filename
+		}
+		if ($k -eq 3) {
+			Backup-WSLDocker -out_directory $out_directory -out_filename $out_filename
+		}
+		if ($k -eq 4) {
+			Backup-WSLKali -out_directory $out_directory -out_filename $out_filename
 		}
 
 	}
