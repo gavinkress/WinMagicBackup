@@ -16,27 +16,33 @@ if ((Test-Admin) -eq $false)  {
 
 
 try {
+	
+	wsl --shutdown
+	
 	$BackupTaskState = "On" # On or Off  -- Choose to enable/disable backup
 	$directories = @( # where to store Backup files for each backup item
 		"$env:USERPROFILE\OneDrive\Configuration and Settings Backup\Environment Variables", 
 		"$env:USERPROFILE\OneDrive\Configuration and Settings Backup\AppList",
 		"$env:USERPROFILE\OneDrive\Configuration and Settings Backup\WSL\Ubuntu",
 		"$env:USERPROFILE\OneDrive\Configuration and Settings Backup\WSL\docker-desktop",
-		"$env:USERPROFILE\OneDrive\Configuration and Settings Backup\WSL\Kali"  
-	) 
+		"$env:USERPROFILE\OneDrive\Configuration and Settings Backup\WSL\Kali"
+		"$env:USERPROFILE\OneDrive\Configuration and Settings Backup\Venv Libs\RCyPy"  
+		) 
 	$Backup_Names = @( # Descriptive Backup Prepend for Naming
 		"System Environment Variables", 
 		"Current Apps",
 		"WSL_Ubuntu",
 		"WSL_Docker", 
-		"WSL_Kali"
+		"WSL_Kali",
+		"RCyPy"
 	)
 	$N_backups_list = @( # Keep N unique backups
 		50,
 		50, 
 		3,
 		3, 
-		3
+		3,
+		50
 	)
 
 	# Custom Backup data Collection and extraction methods
@@ -77,12 +83,25 @@ try {
 			)
 			wsl --export docker-desktop "$out_directory\$out_filename.tar" 
 		}
+
 		function Backup-WSLKali {
 			param (
 				$out_directory,
 				$out_filename
 			)
 			wsl --export docker-desktop "$out_directory\$out_filename.tar" 
+		}
+		function Backup-RCyPy {
+			param (
+				$out_directory,
+				$out_filename
+			)
+			$VenvDir = "$env:USERPROFILE/OneDrive/Centralized Programming Heirarchy/.env/.virtualenvs/RCyPyVenv/"
+			& $VenvDir/Scripts/activate.ps1
+			pip freeze > $VenvDir/dist/requirements.in
+			pip-compile $VenvDir/dist/requirements.in > $VenvDir/dist/requirements.txt
+			& $VenvDir/Scripts/deactivate.bat
+			Copy-Item -Path $VenvDir/dist/requirements.txt -Destination "$out_directory/$out_filename requirements.txt"
 		}
 		if ($k -eq 0) {
 			Backup-EnvironmentVariables -out_directory $out_directory -out_filename $out_filename
@@ -98,6 +117,9 @@ try {
 		}
 		if ($k -eq 4) {
 			Backup-WSLKali -out_directory $out_directory -out_filename $out_filename
+		}
+		if ($k -eq 5) {
+			Backup-RCyPy -out_directory $out_directory -out_filename $out_filename
 		}
 
 	}
@@ -115,7 +137,7 @@ try {
 				$Unique_Backup_Name = "$Backup_Name $Date_now"
 				$Date_now = Get-Date -Format "MM-dd-yyyy hh_mm_ss_ff"
 				$TheTaskName = "WinMagicBackup by Gavinkress at $Date_now"
-				$BackupMatchPattern = "^$Backup_Name .?\d{2}-\d{2}-\d{4} \d{2}_\d{2}_\d{2}_\d{2}\.?.txt$" 
+				$BackupMatchPattern = "^$Backup_Name .?\d{2}-\d{2}-\d{4} \d{2}_\d{2}_\d{2}_\d{2}\.*$" 
 				$BackupTaskMatchPattern = "^WinMagicBackup by Gavinkress at .?\d{2}-\d{2}-\d{4} \d{2}_\d{2}_\d{2}_\d{2}\.?$"
 				Backup-Target -out_directory $directory -out_filename $Unique_Backup_Name -k $i # Custom Backup data Collection and extraction methods
 
@@ -192,4 +214,17 @@ catch {
 	$ErrMsg = "Backup task $PSCommand failed with Exception $_.Exception. Error log appended at $errpath\ERROR_TASK_FAILED.log You must fix your input or manually disable or will Keep getting this popup."
 	Write-Host $ErrMsg
 	Break
+}
+finally {
+
+	$currentmsg = 'WinMagicBackup by GavinKress Complete'
+	$n = $currentmsg.length
+	$outers = "------------------------------------------------------------------------------------------"+"-"*$n
+	echo ""
+	echo $outers
+	echo "-------------------------------------------- $currentmsg --------------------------------------------"
+	echo $outers
+	echo ""
+	Start-Sleep -Seconds 3
+	echo ""
 }
